@@ -1,41 +1,49 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
-// import { FontAwsomeS } from "expo/vector-icons";
+import { View, StyleSheet, } from "react-native";
+import CircularProgress from "react-native-circular-progress-indicator";
 
-export default class Screen extends React.Component {
-  render() {
-    return (
-      <View style={Styles.container}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={{ alignItems: "flex-end", margin: 16 }}
-            onPress={this.props.navigation.openDrawer}
-          >
-            <FontAwsomeS name="bars" size={24} color="#161924" />
-          </TouchableOpacity>
-          <View style={{ flex: 1, alignItems: center, justifyContent: center }}>
-            <Text style={Styles.text}>{this.props.name} Screen</Text>
-          </View>
-        </SafeAreaView>
+export const Screen = ({ route }) => {
+  const { color, value, name } = route.params;
+
+  return (
+    <View style={styles.view}>
+      <View style={styles.container}>
+        <CircularProgress
+          value={value}
+          title={`% ${name}`}
+          radius={180}
+          duration={2000}
+          progressValueColor={color}
+          maxValue={100}
+          inActiveStrokeWidth={25}
+          inActiveStrokeColor={color}
+          inActiveStrokeOpacity={0.4}
+          activeStrokeWidth={20}
+          activeStrokeColor={color}
+        />
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
+const styles = StyleSheet.create({
+  view: {
+    width: "100%",
+    height: "100%",
+    overflowY: "hidden",
+    overflowX: "hidden",
+    backgroundColor: "#f2f2f2"
+
   },
+
   text: {
     color: "#161924",
     fontSize: 20,
     fontWeight: 500,
   },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "150px"
+  }
 });
